@@ -29,27 +29,27 @@ int destruirPetecas(int numPetecas, int numAmigos) {
 }
 
 // Função 03
-void marteloThor(lst_thor, lst_hammer) {
-  var x_thor = lst_thor[0];
-  var y_thor = lst_thor[1];
-  var x_hammer = lst_hammer[0];
-  var y_hammer = lst_hammer[1];
+void marteloThor(thor, martelo) {
+  var x_thor = thor[0];
+  var y_thor = thor[1];
+  var x_mart = martelo[0];
+  var y_mart = martelo[1];
 
   print("THOR INITIAL POSITION = [$x_thor, $y_thor]\n");
 
   var cont = 1;
   while (true) {
     // Descobrir o lado do passo
-    if (x_hammer > x_thor) {
+    if (x_mart > x_thor) {
       x_thor++;
     } else {
-      if (x_hammer < x_thor) {
+      if (x_mart < x_thor) {
         x_thor--;
       } else {
-        if (y_hammer > y_thor) {
+        if (y_mart > y_thor) {
           y_thor++;
         } else {
-          if (y_hammer < y_thor) {
+          if (y_mart < y_thor) {
             y_thor--;
           }
         }
@@ -57,7 +57,7 @@ void marteloThor(lst_thor, lst_hammer) {
     }
 
     // Verificar se o THOR e o martelo estão juntos
-    if ((x_thor == x_hammer) && (y_thor == y_hammer)) {
+    if ((x_thor == x_mart) && (y_thor == y_mart)) {
       print("STEP $cont -> [$x_thor, $y_thor]\n(THOR FOUND HAMMER!)");
       break;
     } else {
