@@ -67,7 +67,7 @@ class MatheusHomePage extends StatelessWidget {
           child: Container(
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: retornaRows(thorHammer([1, 1], [3, 2]))),
+                children: retornaRows(thorHammer([1, 1], [5, 4]))),
           ),
         ),
       ),
@@ -86,7 +86,8 @@ List<Widget> retornaRows(List positions) {
 List<Widget> retornaContainers(j, positions) {
   List<Widget> column = [];
 
-  for (int i = 0; i < 5; i++) {
+  // Explicar motivo decremento
+  for (int i = 4; i >= 0; i--) {
     String atual = "[${j + 1}, ${i + 1}]";
     if (positions.toString().contains(atual)) {
       column.add(containerGreen());
