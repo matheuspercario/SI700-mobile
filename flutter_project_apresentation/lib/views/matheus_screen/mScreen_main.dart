@@ -93,7 +93,7 @@ Widget descriptionText() {
           height: 15.0,
         ),
         Text(
-          "Olá! Meu nome é Matheus Percário Bruder, tenho 22 anos de idade e estou cursando Sistemas de Informação na Faculdade de Tecnologia da Unicamp de Limeira.\n\nEste é um aplicativo foi desenvolvido para disciplina de dispositivos móveis e nas outras abas você pode encontrar mais informações sobre o projeto que pretendo desenvolver durante a disciplina.",
+          "Olá! Meu nome é Matheus Percário Bruder, tenho 22 anos de idade e estou cursando Sistemas de Informação na Faculdade de Tecnologia da Unicamp de Limeira.\n\nJá aviso de antemão que não tenho muita experiência com UI/UX, portanto, certamente alguns projetos vão acabar ficando 'feios'. Eu gosto mesmo é do back-end e dos dados, pretendo seguir carreira como Cientista de dados, contudo, atualmente estou estagiando na área de automação de processos na Bosch (Campinas-SP).\n\nEste é um aplicativo foi desenvolvido para disciplina de dispositivos móveis e nas outras abas você pode encontrar mais informações sobre o projeto que pretendo desenvolver durante a disciplina.",
           style: TextStyle(
             fontSize: 18.0,
             fontStyle: FontStyle.normal,
