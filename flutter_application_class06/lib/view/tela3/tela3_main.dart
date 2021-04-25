@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:walletter/model/loginModel.dart';
+import 'package:flutter_application_class06/model/login.dart';
 
 class MainTela3 extends StatelessWidget {
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
-  final LoginForm loginData = new LoginForm();
+  final LoginData loginData = new LoginData();
 
   @override
   Widget build(BuildContext context) {

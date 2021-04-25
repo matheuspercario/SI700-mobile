@@ -16,8 +16,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
         brightness: Brightness.dark,
       ),
-      home: LoginPage(),
+      darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
+      //home: LoginPage(),
+      routes: {
+        '/': (context) => LoginPage(),
+        '/homepage': (context) => MyTabBarLayout(),
+      },
     ); // Gerenciador de Estados Automático
   }
 }

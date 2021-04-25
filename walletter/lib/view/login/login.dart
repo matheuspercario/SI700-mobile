@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:walletter/model/login.dart';
+import 'package:walletter/model/loginModel.dart';
 import 'package:walletter/view/register/register.dart';
 
 class LoginPage extends StatelessWidget {
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
-  final LoginData loginData = new LoginData();
+  final LoginForm loginForm = new LoginForm();
 
   @override
   Widget build(BuildContext context) {
@@ -13,18 +13,29 @@ class LoginPage extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.only(left: 30, right: 30),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
+                    height: 15,
+                  ),
+                  Image.asset(
+                    'assets/images/money_logo.png',
+                    fit: BoxFit.contain,
                     height: 50,
                   ),
-                  Text(
-                    "Spotify",
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Walletter",
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(
                     height: 6,
@@ -41,47 +52,13 @@ class LoginPage extends StatelessWidget {
                     ),
                     passwordTextField(),
                     SizedBox(
-                      height: 12,
-                    ),
-                    SizedBox(
                       height: 30,
                     ),
-                    submitButton(),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
+                    submitButton(context),
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "Novo usuário?",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return SignupPage();
-                        }));
-                      },
-                      child: Text(
-                        " Resgistre-se aqui!",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.greenAccent.shade700),
-                      ),
-                    )
-                  ],
-                ),
-              )
+              registerNavigation(context)
             ],
           ),
         ),
@@ -89,75 +66,151 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Container submitButton() {
+  Widget registerNavigation(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "Novo usuário?",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return RegisterPage();
+                  },
+                ),
+              );
+            },
+            child: Text(
+              " Resgistre-se aqui!",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.greenAccent.shade700),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget submitButton(BuildContext context) {
     return Container(
       height: 50,
       width: double.infinity,
-      child: FlatButton(
+      child: ElevatedButton(
         onPressed: () {
           if (formKey.currentState.validate()) {
             formKey.currentState.save();
-            loginData.doSomething();
+            loginForm.doSomething();
+            Navigator.pushNamed(context, '/homepage');
           }
         },
-        padding: EdgeInsets.all(0),
-        child: Ink(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(29),
-            color: Colors.greenAccent.shade700,
-          ),
-          child: Container(
-            alignment: Alignment.center,
-            constraints:
-                BoxConstraints(maxWidth: double.infinity, minHeight: 50),
-            child: Text(
-              "Login",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
+        child: Text(
+          "LOGIN",
+          style: TextStyle(
+              fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
+        style: ElevatedButton.styleFrom(
+          elevation: 7,
+          primary: Colors.greenAccent.shade700,
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(40),
+          ),
         ),
       ),
     );
   }
 
-  TextFormField passwordTextField() {
+  Widget passwordTextField() {
     return TextFormField(
       obscureText: true,
+      style: TextStyle(fontSize: 18, color: Colors.black87),
       validator: (String inValue) {
         if (inValue.length < 10) {
           return "Mínimo de 10 letras";
         }
         return null;
       },
-      onSaved: (String inValue) {
-        loginData.password = inValue;
-      },
       decoration: InputDecoration(
-        labelText: "Senha",
-        labelStyle: TextStyle(fontSize: 14, color: Colors.grey.shade400),
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: EdgeInsets.only(left: 25, right: 25),
+        hintText: "Senha",
+        hintStyle: TextStyle(fontSize: 18, color: Colors.grey.shade400),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(45),
           borderSide: BorderSide(
             color: Colors.grey.shade300,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: Colors.red,
-            )),
+          borderRadius: BorderRadius.circular(45),
+          borderSide: BorderSide(
+            color: Colors.greenAccent.shade700,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(45),
+          borderSide: BorderSide(
+            color: Colors.red,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(45),
+          borderSide: BorderSide(
+            color: Colors.red,
+          ),
+        ),
       ),
+      onSaved: (String inValue) {
+        loginForm.password = inValue;
+      },
     );
   }
 
-  TextFormField usernameTextField() {
+  Widget usernameTextField() {
     return TextFormField(
+      style: TextStyle(fontSize: 18, color: Colors.black87),
       keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: EdgeInsets.only(left: 25, right: 25),
+        labelText: "Email",
+        labelStyle: TextStyle(fontSize: 18, color: Colors.grey.shade400),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(45),
+          borderSide: BorderSide(
+            color: Colors.grey.shade300,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(45),
+          borderSide: BorderSide(
+            color: Colors.greenAccent.shade700,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(45),
+          borderSide: BorderSide(
+            color: Colors.red,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(45),
+          borderSide: BorderSide(
+            color: Colors.red,
+          ),
+        ),
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+      ),
       validator: (String inValue) {
         if (inValue.length == 0) {
           return "Insira um nome de usuário";
@@ -165,23 +218,8 @@ class LoginPage extends StatelessWidget {
         return null;
       },
       onSaved: (String inValue) {
-        loginData.username = inValue;
+        loginForm.username = inValue;
       },
-      decoration: InputDecoration(
-        labelText: "Usuário",
-        labelStyle: TextStyle(fontSize: 14, color: Colors.grey.shade400),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(29),
-          borderSide: BorderSide(
-            color: Colors.grey.shade300,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: Colors.red,
-            )),
-      ),
     );
   }
 }
