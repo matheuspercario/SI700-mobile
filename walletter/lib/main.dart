@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:walletter/view/TransactionsSreen/add_expense_screen.dart';
+import 'package:walletter/view/TransactionsSreen/add_income_screen.dart';
 import 'package:walletter/view/login/login.dart';
-import 'package:walletter/view/tab_bar_layout.dart';
+import 'package:walletter/view/bottom_navigation_bar.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,7 +23,9 @@ class MyApp extends StatelessWidget {
       //home: LoginPage(),
       routes: {
         '/': (context) => LoginPage(),
-        '/homepage': (context) => MyTabBarLayout(),
+        '/homepage': (context) => MyBottomNavigationBar(),
+        '/add_income': (context) => AddIncome(),
+        '/add_expense': (context) => AddExpense(),
       },
     ); // Gerenciador de Estados Automático
   }

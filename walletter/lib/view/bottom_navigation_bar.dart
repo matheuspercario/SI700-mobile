@@ -1,46 +1,80 @@
 import 'package:flutter/material.dart';
-import 'package:walletter/view/tela01/tela01_main.dart';
-import 'package:walletter/view/tela02/tela02_main.dart';
-import 'package:walletter/view/tela03/tela03_main.dart';
+
+import 'HomeScreen/home_screen.dart';
+import 'TransactionsSreen/transaction_screen.dart';
+import 'UserScreen/user_screen.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return MyBottomNavigationBarState();
-  }
+  _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
 }
 
-class MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
-  int _currentPage = 0;
+class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
+  int _currentIndex = 1;
   List<Widget> _pages = [
-    MainTela1(),
-    MainTela2(),
-    MainTela3(),
+    TransactionsScreen(),
+    HomeScreen(),
+    UserScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.pink),
-      home: Scaffold(
-        appBar: AppBar(title: Text("BottomNavigationBar Layout")),
-        body: _pages[_currentPage],
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_tree_rounded), label: "Tela 01"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.add_a_photo), label: "Tela 02"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.zoom_in_sharp), label: "Tela 03"),
-          ],
-          currentIndex: _currentPage,
-          // fixedColor: Colors.blueGrey, // Cor fixa (sem combinar com materialApp)
-          onTap: (int index) {
-            setState(() {
-              _currentPage = index;
-            });
-          },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Walletter',
+          style: TextStyle(fontSize: 24),
+        ),
+        backgroundColor: Colors.greenAccent.shade700,
+      ),
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 1.0,
+        clipBehavior: Clip.antiAlias,
+        child: Container(
+          height: kBottomNavigationBarHeight,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                top: BorderSide(
+                  color: Colors.grey.shade600,
+                  width: 0.5,
+                ),
+              ),
+            ),
+            child: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              backgroundColor: Colors.grey.shade700,
+              selectedItemColor: Colors.black,
+              onTap: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.list_sharp), label: 'Transações'),
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.person), label: 'Perfil')
+              ],
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton(
+          backgroundColor:
+              _currentIndex == 1 ? Colors.grey.shade300 : Colors.grey.shade700,
+          child: Icon(Icons.home),
+          onPressed: () => setState(() {
+            _currentIndex = 1;
+          }),
         ),
       ),
     );

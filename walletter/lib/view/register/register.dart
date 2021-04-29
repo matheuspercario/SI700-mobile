@@ -449,11 +449,32 @@ class RegisterPageState extends State<RegisterPage> {
       height: 50,
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           if (formKey.currentState.validate()) {
-            formKey.currentState.save();
-            registerForm.doSomething();
-            Navigator.pop(context);
+            await showDialog(
+                context: formKey.currentContext,
+                builder: (_) => generateConfirmationDialog(),
+                barrierDismissible: false);
+            if (formKey.currentState.validate()) {
+              formKey.currentState.save();
+              registerForm.doSomething();
+              registerForm.confirmed = false;
+              //Navigator.pop(context);
+            }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red.shade600,
+                duration: Duration(seconds: 2),
+                content: Text("Ainda faltam algumas informações..."),
+                action: SnackBarAction(
+                  label: "OK",
+                  onPressed: () {
+                    print("Funcionou");
+                  },
+                ),
+              ),
+            );
           }
         },
         child: Text(
@@ -471,6 +492,36 @@ class RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  Widget generateConfirmationDialog() {
+    return AlertDialog(
+        title: Text(
+          "Confirme para prosseguir",
+          style: TextStyle(color: Colors.black87),
+        ),
+        content: Text(
+            "Você tem certeza de que gostaria de enviar seus dados para o cadastro?",
+            style: TextStyle(color: Colors.black87)),
+        actions: [
+          TextButton(
+            child: Text("Sim"),
+            onPressed: () {
+              registerForm.confirmed = true;
+              Navigator.of(formKey.currentContext).pop();
+            },
+          ),
+          TextButton(
+            child: Text("Não"),
+            onPressed: () {
+              registerForm.confirmed = false;
+              Navigator.of(formKey.currentContext).pop();
+            },
+          ),
+        ],
+        backgroundColor: Colors.grey.shade100,
+        elevation: 20,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)));
   }
 
   Widget loginNavigation(BuildContext context) {

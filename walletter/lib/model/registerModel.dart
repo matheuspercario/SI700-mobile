@@ -10,6 +10,7 @@ class RegisterForm {
   var checkBoxCarro = false;
   var checkBoxMoto = false;
   var checkBoxBicicleta = false;
+  bool confirmed = false;
 
   doSomething() {
     print("String   -> Nome completo: $fullName");

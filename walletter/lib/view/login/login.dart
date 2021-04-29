@@ -108,7 +108,21 @@ class LoginPage extends StatelessWidget {
           if (formKey.currentState.validate()) {
             formKey.currentState.save();
             loginForm.doSomething();
-            Navigator.pushNamed(context, '/homepage');
+            Navigator.pushReplacementNamed(context, '/homepage');
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red.shade600,
+                duration: Duration(seconds: 2),
+                content: Text("Email e/ou senha inválidos!"),
+                action: SnackBarAction(
+                  label: "OK",
+                  onPressed: () {
+                    print("Funcionou");
+                  },
+                ),
+              ),
+            );
           }
         },
         child: Text(
