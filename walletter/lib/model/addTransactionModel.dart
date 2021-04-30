@@ -1,10 +1,29 @@
-class AddTransactionForm {
-  String username;
-  String password;
-  bool confirmed = false;
+class AddIncomeForm {
+  var value;
+  var date;
+  var description;
+  var confirmed = false;
+  var type = "income";
 
   doSomething() {
-    print("Username: $username");
-    print("Password: $password");
+    print("Valor: $value");
+    print("Date: $date");
+    print("Description: $description");
+    print("Tipo: $type");
+  }
+}
+
+class AddExpenseForm {
+  var value;
+  var date;
+  var description;
+  var confirmed = false;
+  var type = "expense";
+
+  doSomething() {
+    print("Valor: $value");
+    print("Date: $date");
+    print("Description: $description");
+    print("Tipo: $type");
   }
 }

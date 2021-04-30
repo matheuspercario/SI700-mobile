@@ -13,14 +13,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Walletter',
       theme: ThemeData(
-        primarySwatch: Colors.green,
         brightness: Brightness.dark,
+        primarySwatch: Colors.blue,
+        //primaryColor: Colors.greenAccent[700],
+        textTheme: TextTheme(),
+        accentColor: Colors.white,
       ),
-      darkTheme: ThemeData.dark(),
-      debugShowCheckedModeBanner: false,
-      //home: LoginPage(),
       routes: {
         '/': (context) => LoginPage(),
         '/homepage': (context) => MyBottomNavigationBar(),

@@ -8,39 +8,41 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: double.infinity,
-              height: 250,
-              color: Colors.greenAccent.shade700,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: double.infinity,
+                height: 250,
+                color: Colors.greenAccent.shade700,
+              ),
+              Positioned(
+                top: 120,
+                child: myCard(),
+              ),
+            ],
+          ),
+          Container(
+            //decoration: BoxDecoration(color: Colors.amber),
+            padding: EdgeInsets.only(top: 170),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                addIncome(),
+                addExpense(),
+              ],
             ),
-            Positioned(
-              top: 120,
-              child: myCard(),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 150,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            add_income(),
-            add_expense(),
-          ],
-        )
-      ],
+          ),
+        ],
+      ),
     );
   }
 
-  Widget add_income() {
+  Widget addIncome() {
     return ElevatedButton(
       onPressed: () {
         Navigator.pushNamed(context, '/add_income');
@@ -57,13 +59,13 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 10,
         primary: Colors.greenAccent.shade700,
         shape: new RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(20),
+          borderRadius: new BorderRadius.circular(50),
         ),
       ),
     );
   }
 
-  Widget add_expense() {
+  Widget addExpense() {
     return ElevatedButton(
       onPressed: () {
         Navigator.pushNamed(context, '/add_expense');
@@ -80,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 10,
         primary: Colors.redAccent.shade700,
         shape: new RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(20),
+          borderRadius: new BorderRadius.circular(50),
         ),
       ),
     );

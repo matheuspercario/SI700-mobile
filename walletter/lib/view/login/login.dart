@@ -108,7 +108,8 @@ class LoginPage extends StatelessWidget {
           if (formKey.currentState.validate()) {
             formKey.currentState.save();
             loginForm.doSomething();
-            Navigator.pushReplacementNamed(context, '/homepage');
+            // Navigator.pushReplacementNamed(context, '/homepage');
+            Navigator.pushNamed(context, '/homepage');
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

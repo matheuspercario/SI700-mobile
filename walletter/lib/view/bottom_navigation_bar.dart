@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'HomeScreen/home_screen.dart';
-import 'TransactionsSreen/transaction_screen.dart';
+import 'TransactionsSreen/transaction_listview_screen.dart';
 import 'UserScreen/user_screen.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
@@ -12,7 +12,7 @@ class MyBottomNavigationBar extends StatefulWidget {
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _currentIndex = 1;
   List<Widget> _pages = [
-    TransactionsScreen(),
+    TransactionsListView(),
     HomeScreen(),
     UserScreen(),
   ];
@@ -23,7 +23,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       appBar: AppBar(
         title: Text(
           'Walletter',
-          style: TextStyle(fontSize: 24),
+          style: TextStyle(fontSize: 20),
         ),
         backgroundColor: Colors.greenAccent.shade700,
       ),
@@ -39,15 +39,14 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
               color: Colors.white,
               border: Border(
                 top: BorderSide(
-                  color: Colors.grey.shade600,
-                  width: 0.5,
+                  width: 0.1,
                 ),
               ),
             ),
             child: BottomNavigationBar(
               currentIndex: _currentIndex,
-              backgroundColor: Colors.grey.shade700,
-              selectedItemColor: Colors.black,
+              backgroundColor: Colors.grey.shade900,
+              selectedItemColor: Colors.white,
               onTap: (index) {
                 setState(() {
                   _currentIndex = index;
@@ -70,7 +69,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         padding: const EdgeInsets.all(8.0),
         child: FloatingActionButton(
           backgroundColor:
-              _currentIndex == 1 ? Colors.grey.shade300 : Colors.grey.shade700,
+              _currentIndex == 1 ? Colors.grey.shade300 : Colors.grey.shade900,
           child: Icon(Icons.home),
           onPressed: () => setState(() {
             _currentIndex = 1;
