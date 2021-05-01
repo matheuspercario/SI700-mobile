@@ -24,6 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 top: 120,
                 child: myCard(),
               ),
+              Image.asset(
+                'assets/images/money_logo.png',
+                fit: BoxFit.contain,
+                height: 75,
+                
+              ),
             ],
           ),
           Container(

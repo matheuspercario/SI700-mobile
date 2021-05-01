@@ -496,32 +496,35 @@ class RegisterPageState extends State<RegisterPage> {
 
   Widget generateConfirmationDialog() {
     return AlertDialog(
-        title: Text(
-          "Confirme para prosseguir",
-          style: TextStyle(color: Colors.black87),
+      title: Text(
+        "Confirme para prosseguir",
+        style: TextStyle(color: Colors.black87),
+      ),
+      content: Text(
+          "Você tem certeza de que gostaria de enviar seus dados para o cadastro?",
+          style: TextStyle(color: Colors.black87)),
+      actions: [
+        TextButton(
+          child: Text("Sim"),
+          onPressed: () {
+            registerForm.confirmed = true;
+            Navigator.of(formKey.currentContext).pop();
+          },
         ),
-        content: Text(
-            "Você tem certeza de que gostaria de enviar seus dados para o cadastro?",
-            style: TextStyle(color: Colors.black87)),
-        actions: [
-          TextButton(
-            child: Text("Sim"),
-            onPressed: () {
-              registerForm.confirmed = true;
-              Navigator.of(formKey.currentContext).pop();
-            },
-          ),
-          TextButton(
-            child: Text("Não"),
-            onPressed: () {
-              registerForm.confirmed = false;
-              Navigator.of(formKey.currentContext).pop();
-            },
-          ),
-        ],
-        backgroundColor: Colors.grey.shade100,
-        elevation: 20,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)));
+        TextButton(
+          child: Text("Não"),
+          onPressed: () {
+            registerForm.confirmed = false;
+            Navigator.of(formKey.currentContext).pop();
+          },
+        ),
+      ],
+      backgroundColor: Colors.grey.shade100,
+      elevation: 20,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+    );
   }
 
   Widget loginNavigation(BuildContext context) {
