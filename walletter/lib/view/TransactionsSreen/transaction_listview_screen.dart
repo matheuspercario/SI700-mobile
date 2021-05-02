@@ -44,8 +44,15 @@ class _TransactionsStateListView extends State<TransactionsListView> {
             child: Dismissible(
               key: ValueKey(123),
               direction: DismissDirection.startToEnd,
-              onDismissed: (direction) async {
-                //print(direction);
+              // onDismissed: (direction) async {
+              //   //print(direction);
+              //   await showDialog(
+              //     context: context,
+              //     builder: (_) => generateConfirmationDialog(),
+              //     barrierDismissible: false,
+              //   );
+              // },
+              confirmDismiss: (direction) async {
                 await showDialog(
                   context: context,
                   builder: (_) => generateConfirmationDialog(),
@@ -96,14 +103,12 @@ class _TransactionsStateListView extends State<TransactionsListView> {
         TextButton(
           child: Text("Sim"),
           onPressed: () {
-            //registerForm.confirmed = true;
             Navigator.of(context).pop();
           },
         ),
         TextButton(
           child: Text("Não"),
           onPressed: () {
-            //registerForm.confirmed = false;
             Navigator.of(context).pop();
           },
         ),

@@ -8,15 +8,111 @@ class UserScreen extends StatelessWidget {
       height: double.infinity,
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            photoWidget(),
+            logoWalletter(),
+            Divider(
+              height: 70,
+              endIndent: 100,
+              indent: 100,
+            ),
             logoutButton(context),
+            SizedBox(
+              height: 30,
+            ),
+            userName(),
+            Divider(
+              height: 70,
+              endIndent: 100,
+              indent: 100,
+            ),
+            userInformations()
           ],
         ),
       ),
     );
+  }
+
+  Widget userInformations() {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 40),
+      child: Column(
+        //mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Informações",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              Text(
+                "Nome: ",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text("Matheus Bruder"),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                "Idade: ",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text("22"),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                "Email: ",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text("mpbruder@gmail.com"),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                "Dependentes: ",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text("Não"),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                "Cartão de crédito: ",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text("Sim"),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget logoWalletter() {
+    return Column(children: [
+      Image.asset(
+        'assets/images/money_logo.png',
+        width: 120,
+      ),
+      SizedBox(
+        height: 20,
+      ),
+      Text(
+        "Walletter",
+        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      ),
+    ]);
   }
 
   Widget logoutButton(BuildContext context) {
@@ -30,7 +126,7 @@ class UserScreen extends StatelessWidget {
             fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
       ),
       style: ElevatedButton.styleFrom(
-        elevation: 5,
+        elevation: 10,
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
         primary: Colors.grey.shade300,
       ),
@@ -46,53 +142,10 @@ class UserScreen extends StatelessWidget {
           style: TextStyle(fontSize: 16),
         ),
         Text(
-          "Nicollinha boboca",
-          style: TextStyle(fontSize: 16),
+          "Matheus Bruder",
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         )
       ],
-    );
-  }
-
-  Widget photoWidget() {
-    return Container(
-      width: double.infinity,
-      child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5,
-                    color: Colors.grey.shade900,
-                    spreadRadius: 1,
-                  )
-                ],
-              ),
-              child: CircleAvatar(
-                backgroundColor: Colors.greenAccent.shade700,
-                radius: 72.0,
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey.shade300,
-                  child: Image.asset(
-                    'assets/images/user-icon.png',
-                    width: 70,
-                  ),
-                  radius: 70.0,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            userName(),
-          ],
-        ),
-      ),
     );
   }
 }

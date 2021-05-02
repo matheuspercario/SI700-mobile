@@ -78,17 +78,21 @@ class _AddIncomeState extends State<AddIncome> {
         labelText: DateFormat("dd/MM/yyyy").format(_dateTime).toString(),
         icon: Icon(Icons.calendar_today_rounded),
       ),
-      onTap: () {
+      onTap: () async {
         FocusScope.of(context).requestFocus(new FocusNode());
-        showDatePicker(
+        final DateTime picked = await showDatePicker(
           context: context,
           initialDate: DateTime.now(),
           firstDate: DateTime(2000),
-          lastDate: DateTime.now(),
-        ).then((date) {
-          setState(() {
-            _dateTime = date;
-          });
+          lastDate: DateTime.now().add(const Duration(days: 100)),
+        ).then((picked) {
+          if (picked == null) {
+            print("Don't piked any date...");
+          } else {
+            setState(() {
+              _dateTime = picked;
+            });
+          }
         });
       },
       onSaved: (_) {
@@ -131,7 +135,7 @@ class _AddIncomeState extends State<AddIncome> {
       ],
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
-        hintText: "R\$ 0,00",
+        hintText: "R\$ 0.00",
         // labelText: "Insira o valor",
         suffixIcon: Icon(
           Icons.add_circle_rounded,
@@ -139,7 +143,7 @@ class _AddIncomeState extends State<AddIncome> {
         ),
       ),
       validator: (String inValue) {
-        if (inValue.length <= 0) {
+        if (inValue.isEmpty) {
           return "Insira um valor";
         }
         return null;

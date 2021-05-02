@@ -28,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 'assets/images/money_logo.png',
                 fit: BoxFit.contain,
                 height: 75,
-                
               ),
             ],
           ),
@@ -107,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 50, left: 30),
                 child: Text(
-                  "Total",
+                  "Saldo",
                   style: TextStyle(
                       color: Colors.grey.shade600,
                       fontSize: 24,
