@@ -88,7 +88,7 @@ class LoginPage extends StatelessWidget {
               );
             },
             child: Text(
-              " Resgistre-se aqui!",
+              " Registre-se aqui!",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.greenAccent.shade700),
