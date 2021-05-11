@@ -18,6 +18,7 @@ class Note {
     this._title = map["title"];
     this._description = map["description"];
     this._dataLocation = map["dataLocation"];
+    // this._dataLocation = 0;
   }
 
   String get title => _title;

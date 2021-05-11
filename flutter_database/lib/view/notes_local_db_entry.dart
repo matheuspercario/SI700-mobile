@@ -1,3 +1,7 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_database/logic/manage_db/manage_db_event.dart';
+import 'package:flutter_database/logic/manage_db/manage_db_state.dart';
+import 'package:flutter_database/logic/manage_db/manage_local_db_bloc.dart';
 import 'package:flutter_database/model/note.dart';
 import 'package:flutter/material.dart';
 
@@ -6,16 +10,27 @@ class NotesEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Note note = new Note();
-    return Form(
-        key: formKey,
-        child: Column(
-          children: [
-            tituloFormField(note),
-            descriptionFormField(note),
-            submitButton(note)
-          ],
-        ));
+    return BlocBuilder<ManageLocalBloc, ManageState>(
+      builder: (context, state) {
+        Note note;
+        if (state is UpdateState) {
+          note = state.previousNote;
+        } else {
+          note = new Note();
+        }
+        return Form(
+          key: formKey,
+          child: Column(
+            children: [
+              tituloFormField(note),
+              descriptionFormField(note),
+              submitButton(note, state, context),
+              cancelButton(state, context)
+            ],
+          ),
+        );
+      },
+    );
   }
 
   Widget tituloFormField(Note note) {
@@ -62,7 +77,26 @@ class NotesEntry extends StatelessWidget {
     );
   }
 
-  Widget submitButton(Note note) {
-    return ElevatedButton(child: Text("Insert Data"), onPressed: () {});
+  Widget submitButton(Note note, state, context) {
+    return ElevatedButton(
+        child:
+            (state is UpdateState ? Text("Update Data") : Text("Insert Data")),
+        onPressed: () {
+          if (formKey.currentState.validate()) {
+            formKey.currentState.save();
+            BlocProvider.of<ManageLocalBloc>(context)
+                .add(SubmitEvent(note: note));
+          }
+        });
+  }
+
+  Widget cancelButton(state, context) {
+    return (state is UpdateState
+        ? ElevatedButton(
+            onPressed: () {
+              BlocProvider.of<ManageLocalBloc>(context).add(UpdateCancel());
+            },
+            child: Text("Cancel Update"))
+        : Container());
   }
 }

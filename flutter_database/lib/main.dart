@@ -1,3 +1,7 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_database/logic/manage_db/manage_db_state.dart';
+import 'package:flutter_database/logic/manage_db/manage_local_db_bloc.dart';
+import 'package:flutter_database/logic/monitor_db/monitor_local_db_bloc.dart';
 import 'package:flutter_database/view/note_list.dart';
 import 'package:flutter_database/view/notes_local_db_entry.dart';
 import 'package:flutter/material.dart';
@@ -24,29 +28,44 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Scaffold(
-        body: _pages[_currentPage],
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance_wallet), label: "View"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance_wallet),
-                label: "Manage Local"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance_wallet),
-                label: "Manage Remote"),
-          ],
-          currentIndex: _currentPage,
-          onTap: (int novoIndex) {
-            setState(() {
-              _currentPage = novoIndex;
-            });
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => MonitorBloc()),
+          BlocProvider(create: (_) => ManageLocalBloc()),
+        ],
+        child: BlocListener<ManageLocalBloc, ManageState>(
+          listener: (context, state) {
+            if (state is UpdateState) {
+              setState(() {
+                _currentPage = 1;
+              });
+            }
           },
-          fixedColor: Colors.red,
-        ),
-        appBar: AppBar(
-          title: Text("Minhas Anotações"),
+          child: Scaffold(
+            body: _pages[_currentPage],
+            bottomNavigationBar: BottomNavigationBar(
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.account_balance_wallet), label: "View"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.account_balance_wallet),
+                    label: "Manage Local"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.account_balance_wallet),
+                    label: "Manage Remote"),
+              ],
+              currentIndex: _currentPage,
+              onTap: (int novoIndex) {
+                setState(() {
+                  _currentPage = novoIndex;
+                });
+              },
+              fixedColor: Colors.red,
+            ),
+            appBar: AppBar(
+              title: Text("Minhas Anotações"),
+            ),
+          ),
         ),
       ),
     );

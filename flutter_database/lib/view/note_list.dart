@@ -1,4 +1,8 @@
-import 'package:flutter_database/model/note.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_database/logic/manage_db/manage_db_event.dart';
+import 'package:flutter_database/logic/manage_db/manage_local_db_bloc.dart';
+import 'package:flutter_database/logic/monitor_db/monitor_db_state.dart';
+import 'package:flutter_database/logic/monitor_db/monitor_local_db_bloc.dart';
 import 'package:flutter/material.dart';
 
 class NoteList extends StatefulWidget {
@@ -18,17 +22,9 @@ class _NoteListState extends State<NoteList> {
 
   @override
   Widget build(BuildContext context) {
-    List<Note> noteList = [];
-
-    Note note1 = Note();
-    note1.title = "Primeiro Título";
-    Note note2 = Note();
-    note2.title = "Primeiro Título";
-
-    noteList.add(note1);
-    noteList.add(note2);
-    List<int> idList;
-    return getNoteListView(noteList, idList);
+    return BlocBuilder<MonitorBloc, MonitorState>(builder: (context, state) {
+      return getNoteListView(state.noteList, state.idList);
+    });
   }
 
   ListView getNoteListView(noteList, idList) {
@@ -42,8 +38,23 @@ class _NoteListState extends State<NoteList> {
             leading: Icon(iconLocation[noteList[position].dataLocation]),
             title: Text(noteList[position].title),
             subtitle: Text(noteList[position].description),
-            onTap: () {},
-            trailing: GestureDetector(onTap: () {}, child: Icon(Icons.delete)),
+            onTap: () {
+              BlocProvider.of<ManageLocalBloc>(context).add(
+                UpdateRequest(
+                  noteId: idList[position],
+                  previousNote: noteList[position],
+                ),
+              );
+            },
+            trailing: GestureDetector(
+                onTap: () {
+                  BlocProvider.of<ManageLocalBloc>(context).add(
+                    DeleteEvent(
+                      noteId: idList[position],
+                    ),
+                  );
+                },
+                child: Icon(Icons.delete)),
           ),
         );
       },
