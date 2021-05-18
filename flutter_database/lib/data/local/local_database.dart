@@ -57,7 +57,7 @@ class DatabaseLocalServer {
   }
 
   // QUERY: Retorna tudo que tem no banco.
-  getNoteList() async {
+  Future<List<dynamic>> getNoteList() async {
     Database db = await this.database;
     var noteMapList = await db.rawQuery("SELECT * FROM $noteTable");
     List<Note> noteList = [];
@@ -85,7 +85,7 @@ class DatabaseLocalServer {
   }
 
   // DELETE
-  deleteNote(int noteId) async {
+  Future<int> deleteNote(int noteId) async {
     Database db = await this.database;
     int result = await db.rawDelete(
       "DELETE FROM $noteTable WHERE $colId=$noteId",
