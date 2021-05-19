@@ -7,7 +7,7 @@ app.use(cors());
 app.listen(3000);
 
 
-app.get('/', function(req, res){res.send('Hello world')});
+app.get('/', (req, res) => {res.send('Hello world')});
 
 /*
   Servidor propriamente dito
@@ -46,7 +46,7 @@ app.post(endpoint, (req, res) => {
 });
 
 app.put(`${endpoint}/:id`, (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
     const note = {
         id : id,
         title : req.body["title"],

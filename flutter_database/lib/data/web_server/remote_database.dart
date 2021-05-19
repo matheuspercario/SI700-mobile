@@ -6,9 +6,10 @@ class DatabaseRemoteServer {
    * Criando Singleton
    */
   static DatabaseRemoteServer helper = DatabaseRemoteServer._createInstance();
+
   DatabaseRemoteServer._createInstance();
 
-  String databaseUrl = "http://192.168.1.1:3000/notes";
+  String databaseUrl = "http://127.0.0.1:3000/notes";
 
   Dio _dio = Dio();
 
@@ -49,6 +50,6 @@ class DatabaseRemoteServer {
 void main() async {
   DatabaseRemoteServer noteService = DatabaseRemoteServer.helper;
   var response = await noteService.getNoteList();
-  Note note = response[0][0];
+  Note note = response[0][1];
   print(note.title);
 }
