@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_database/logic/manage_db/manage_db_event.dart';
 import 'package:flutter_database/logic/manage_db/manage_local_db_bloc.dart';
+import 'package:flutter_database/logic/manage_db/manage_remote_db_bloc.dart';
 import 'package:flutter_database/logic/monitor_db/monitor_db_state.dart';
-import 'package:flutter_database/logic/monitor_db/monitor_local_db_bloc.dart';
+import 'package:flutter_database/logic/monitor_db/monitor_db_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_database/model/note.dart';
 
 class NoteList extends StatefulWidget {
   @override
@@ -39,20 +41,25 @@ class _NoteListState extends State<NoteList> {
             title: Text(noteList[position].title),
             subtitle: Text(noteList[position].description),
             onTap: () {
-              BlocProvider.of<ManageLocalBloc>(context).add(
-                UpdateRequest(
-                  noteId: idList[position],
-                  previousNote: noteList[position],
-                ),
-              );
+              if (noteList[position].dataLocation == 1) {
+                BlocProvider.of<ManageLocalBloc>(context).add(UpdateRequest(
+                    noteId: idList[position],
+                    previousNote: Note.fromMap(noteList[position].toMap())));
+              } else if (noteList[position].dataLocation == 2) {
+                BlocProvider.of<ManageRemoteBloc>(context).add(UpdateRequest(
+                    noteId: idList[position],
+                    previousNote: Note.fromMap(noteList[position].toMap())));
+              }
             },
             trailing: GestureDetector(
               onTap: () {
-                BlocProvider.of<ManageLocalBloc>(context).add(
-                  DeleteEvent(
-                    noteId: idList[position],
-                  ),
-                );
+                if (noteList[position].dataLocation == 1) {
+                  BlocProvider.of<ManageLocalBloc>(context)
+                      .add(DeleteEvent(noteId: idList[position]));
+                } else if (noteList[position].dataLocation == 2) {
+                  BlocProvider.of<ManageRemoteBloc>(context)
+                      .add(DeleteEvent(noteId: idList[position]));
+                }
               },
               child: Icon(Icons.delete),
             ),

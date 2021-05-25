@@ -37,8 +37,8 @@ class MonitorBloc extends Bloc<MonitorEvent, MonitorState> {
         remoteIdList = response[1];
         add(
           UpdateList(
-            noteList: List.from(remoteNoteList)..addAll(localNoteList),
-            idList: List.from(remoteIdList)..addAll(localIdList),
+            noteList: List.from(localNoteList)..addAll(remoteNoteList),
+            idList: List.from(localIdList)..addAll(remoteIdList),
           ),
         );
       } catch (e) {}
