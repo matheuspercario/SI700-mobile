@@ -47,14 +47,15 @@ class _NoteListState extends State<NoteList> {
               );
             },
             trailing: GestureDetector(
-                onTap: () {
-                  BlocProvider.of<ManageLocalBloc>(context).add(
-                    DeleteEvent(
-                      noteId: idList[position],
-                    ),
-                  );
-                },
-                child: Icon(Icons.delete)),
+              onTap: () {
+                BlocProvider.of<ManageLocalBloc>(context).add(
+                  DeleteEvent(
+                    noteId: idList[position],
+                  ),
+                );
+              },
+              child: Icon(Icons.delete),
+            ),
           ),
         );
       },

@@ -1,10 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_database/logic/manage_db/manage_db_state.dart';
 import 'package:flutter_database/logic/manage_db/manage_local_db_bloc.dart';
+import 'package:flutter_database/logic/manage_db/manage_remote_db_bloc.dart';
 import 'package:flutter_database/logic/monitor_db/monitor_local_db_bloc.dart';
 import 'package:flutter_database/view/note_list.dart';
 import 'package:flutter_database/view/notes_local_db_entry.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_database/view/notes_remote_db_entry.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _currentPage = 0;
 
-  var _pages = [NoteList(), NotesEntry()];
+  var _pages = [NoteList(), NotesLocalEntry(), NotesRemoteEntry()];
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         providers: [
           BlocProvider(create: (_) => MonitorBloc()),
           BlocProvider(create: (_) => ManageLocalBloc()),
+          BlocProvider(create: (_) => ManageRemoteBloc()),
         ],
         child: BlocListener<ManageLocalBloc, ManageState>(
           listener: (context, state) {
@@ -46,7 +49,9 @@ class _MyAppState extends State<MyApp> {
             bottomNavigationBar: BottomNavigationBar(
               items: [
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.account_balance_wallet), label: "View"),
+                  icon: Icon(Icons.account_balance_wallet),
+                  label: "View",
+                ),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.account_balance_wallet),
                     label: "Manage Local"),

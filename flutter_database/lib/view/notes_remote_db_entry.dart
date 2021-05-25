@@ -1,16 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_database/logic/manage_db/manage_db_event.dart';
 import 'package:flutter_database/logic/manage_db/manage_db_state.dart';
-import 'package:flutter_database/logic/manage_db/manage_local_db_bloc.dart';
+import 'package:flutter_database/logic/manage_db/manage_remote_db_bloc.dart';
 import 'package:flutter_database/model/note.dart';
 import 'package:flutter/material.dart';
 
-class NotesLocalEntry extends StatelessWidget {
+class NotesRemoteEntry extends StatelessWidget {
   final GlobalKey<FormState> formKey = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ManageLocalBloc, ManageState>(
+    return BlocBuilder<ManageRemoteBloc, ManageState>(
       builder: (context, state) {
         Note note;
         if (state is UpdateState) {
@@ -84,7 +84,7 @@ class NotesLocalEntry extends StatelessWidget {
         onPressed: () {
           if (formKey.currentState.validate()) {
             formKey.currentState.save();
-            BlocProvider.of<ManageLocalBloc>(context)
+            BlocProvider.of<ManageRemoteBloc>(context)
                 .add(SubmitEvent(note: note));
           }
         });
@@ -94,7 +94,7 @@ class NotesLocalEntry extends StatelessWidget {
     return (state is UpdateState
         ? ElevatedButton(
             onPressed: () {
-              BlocProvider.of<ManageLocalBloc>(context).add(UpdateCancel());
+              BlocProvider.of<ManageRemoteBloc>(context).add(UpdateCancel());
             },
             child: Text("Cancel Update"))
         : Container());

@@ -48,14 +48,6 @@ class DatabaseLocalServer {
     );
   }
 
-  // INSERT ON DB
-  Future<int> insertNote(Note note) async {
-    Database db = await this.database;
-    int result = await db.insert(noteTable, note.toMap());
-    notify();
-    return result;
-  }
-
   // QUERY: Retorna tudo que tem no banco.
   Future<List<dynamic>> getNoteList() async {
     Database db = await this.database;
@@ -69,6 +61,14 @@ class DatabaseLocalServer {
       idList.add(noteMapList[i]["id"]);
     }
     return [noteList, idList];
+  }
+
+  // INSERT ON DB
+  Future<int> insertNote(Note note) async {
+    Database db = await this.database;
+    int result = await db.insert(noteTable, note.toMap());
+    notify();
+    return result;
   }
 
   // UPDATE
