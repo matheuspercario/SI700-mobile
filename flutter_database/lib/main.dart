@@ -44,31 +44,40 @@ class _MyAppState extends State<MyApp> {
               });
             }
           },
-          child: Scaffold(
-            body: _pages[_currentPage],
-            bottomNavigationBar: BottomNavigationBar(
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.account_balance_wallet),
-                  label: "View",
-                ),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.account_balance_wallet),
-                    label: "Manage Local"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.account_balance_wallet),
-                    label: "Manage Remote"),
-              ],
-              currentIndex: _currentPage,
-              onTap: (int novoIndex) {
+          child: BlocListener<ManageRemoteBloc, ManageState>(
+            listener: (context, state) {
+              if (state is UpdateState) {
                 setState(() {
-                  _currentPage = novoIndex;
+                  _currentPage = 2;
                 });
-              },
-              fixedColor: Colors.red,
-            ),
-            appBar: AppBar(
-              title: Text("Minhas Anotações"),
+              }
+            },
+            child: Scaffold(
+              body: _pages[_currentPage],
+              bottomNavigationBar: BottomNavigationBar(
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.account_balance_wallet),
+                    label: "View",
+                  ),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.account_balance_wallet),
+                      label: "Manage Local"),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.account_balance_wallet),
+                      label: "Manage Remote"),
+                ],
+                currentIndex: _currentPage,
+                onTap: (int novoIndex) {
+                  setState(() {
+                    _currentPage = novoIndex;
+                  });
+                },
+                fixedColor: Colors.red,
+              ),
+              appBar: AppBar(
+                title: Text("Minhas Anotações"),
+              ),
             ),
           ),
         ),

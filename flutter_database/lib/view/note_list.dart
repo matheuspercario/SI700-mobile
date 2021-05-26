@@ -42,13 +42,23 @@ class _NoteListState extends State<NoteList> {
             subtitle: Text(noteList[position].description),
             onTap: () {
               if (noteList[position].dataLocation == 1) {
-                BlocProvider.of<ManageLocalBloc>(context).add(UpdateRequest(
+                BlocProvider.of<ManageLocalBloc>(context).add(
+                  UpdateRequest(
                     noteId: idList[position],
-                    previousNote: Note.fromMap(noteList[position].toMap())));
+                    previousNote: Note.fromMap(
+                      noteList[position].toMap(),
+                    ),
+                  ),
+                );
               } else if (noteList[position].dataLocation == 2) {
-                BlocProvider.of<ManageRemoteBloc>(context).add(UpdateRequest(
+                BlocProvider.of<ManageRemoteBloc>(context).add(
+                  UpdateRequest(
                     noteId: idList[position],
-                    previousNote: Note.fromMap(noteList[position].toMap())));
+                    previousNote: Note.fromMap(
+                      noteList[position].toMap(),
+                    ),
+                  ),
+                );
               }
             },
             trailing: GestureDetector(
