@@ -102,7 +102,7 @@ class DatabaseRemoteServer {
 
   Stream get stream {
     if (_controller == null) {
-      _controller = StreamController();
+      _controller = StreamController.broadcast();
 
       Socket socket = io(
         'http://192.168.1.2:3000/',

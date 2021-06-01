@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_database/logic/manage_auth/auth_bloc.dart';
+import 'package:flutter_database/logic/manage_auth/auth_event.dart';
 import 'package:flutter_database/logic/manage_db/manage_db_state.dart';
 import 'package:flutter_database/logic/manage_db/manage_local_db_bloc.dart';
 import 'package:flutter_database/logic/manage_db/manage_remote_db_bloc.dart';
@@ -52,14 +54,14 @@ class _MyAppState extends State<MyApp> {
             bottomNavigationBar: BottomNavigationBar(
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.account_balance_wallet),
+                  icon: Icon(Icons.list_rounded),
                   label: "View",
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.account_balance_wallet),
+                    icon: Icon(Icons.sd_storage_rounded),
                     label: "Manage Local"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.account_balance_wallet),
+                    icon: Icon(Icons.network_check_rounded),
                     label: "Manage Remote"),
               ],
               currentIndex: _currentPage,
@@ -72,6 +74,18 @@ class _MyAppState extends State<MyApp> {
             ),
             appBar: AppBar(
               title: Text("Minhas Anotações"),
+              actions: [
+                TextButton.icon(
+                  style: TextButton.styleFrom(primary: Colors.white),
+                  icon: Icon(Icons.logout),
+                  onPressed: () {
+                    BlocProvider.of<AuthBloc>(context).add(
+                      Logout(),
+                    );
+                  },
+                  label: Text("Logout"),
+                )
+              ],
             ),
           ),
         ),

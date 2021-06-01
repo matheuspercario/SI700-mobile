@@ -107,7 +107,7 @@ class DatabaseLocalServer {
 
   Stream get stream {
     if (_controller == null) {
-      _controller = StreamController();
+      _controller = StreamController.broadcast();
     }
     return _controller.stream.asBroadcastStream();
   }
