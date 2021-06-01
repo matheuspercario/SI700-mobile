@@ -4,9 +4,10 @@ import 'package:flutter_database/logic/manage_db/manage_local_db_bloc.dart';
 import 'package:flutter_database/logic/manage_db/manage_remote_db_bloc.dart';
 import 'package:flutter_database/logic/monitor_db/monitor_db_bloc.dart';
 import 'package:flutter_database/view/note_list.dart';
-import 'package:flutter_database/view/notes_local_db_entry.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_database/view/notes_remote_db_entry.dart';
+import 'package:flutter_database/view/notes_entry.dart';
+// import 'package:flutter_database/view/notes_local_db_entry.dart';
+// import 'package:flutter_database/view/notes_remote_db_entry.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +21,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _currentPage = 0;
 
-  var _pages = [NoteList(), NotesLocalEntry(), NotesRemoteEntry()];
+  var _pages = [
+    NoteList(),
+    NotesEntry<ManageLocalBloc>(),
+    NotesEntry<ManageRemoteBloc>()
+  ];
 
   @override
   Widget build(BuildContext context) {
