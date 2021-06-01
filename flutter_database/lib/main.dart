@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_database/logic/manage_db/manage_db_state.dart';
 import 'package:flutter_database/logic/manage_db/manage_local_db_bloc.dart';
@@ -9,7 +10,9 @@ import 'package:flutter_database/view/notes_entry.dart';
 // import 'package:flutter_database/view/notes_local_db_entry.dart';
 // import 'package:flutter_database/view/notes_remote_db_entry.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

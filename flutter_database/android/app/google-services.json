@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1069782147737",
+    "project_id": "si700-mpb",
+    "storage_bucket": "si700-mpb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069782147737:android:2ff9d5244df3fde148ce08",
+        "android_client_info": {
+          "package_name": "br.unicamp.matheus.firebase.flutter_database"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1069782147737-3567u675rh6g8gfhfirqo1lf4jk7ch1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDCzuIWBmIWcZ8BHFU7lY7NylKV-TGEFc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1069782147737-3567u675rh6g8gfhfirqo1lf4jk7ch1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

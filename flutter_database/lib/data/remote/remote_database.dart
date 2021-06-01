@@ -13,8 +13,8 @@ class DatabaseRemoteServer {
 
   DatabaseRemoteServer._createInstance();
 
-  //String databaseUrl = "https://webserver-nodejs-mpb.herokuapp.com/notes/";
-  String databaseUrl = "http://192.168.1.2/notes/";
+  // String databaseUrl = "https://webserver-nodejs-mpb.herokuapp.com/notes/";
+  String databaseUrl = "http://192.168.1.2:3000/notes/";
 
   Dio _dio = Dio();
 
@@ -105,7 +105,7 @@ class DatabaseRemoteServer {
       _controller = StreamController();
 
       Socket socket = io(
-        'http://192.168.1.2/',
+        'http://192.168.1.2:3000/',
         OptionBuilder().setTransports(['websocket']).build(),
       );
       socket.on('invalidate', (_) => notify());
