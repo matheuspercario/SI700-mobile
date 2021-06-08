@@ -6,15 +6,15 @@ import 'package:flutter_database/model/note.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class DatabaseRemoteServer {
-  /**
-   * Criando Singleton
-   */
+  ///
+  ///Criando Singlton
+  ///
   static DatabaseRemoteServer helper = DatabaseRemoteServer._createInstance();
 
   DatabaseRemoteServer._createInstance();
 
   // String databaseUrl = "https://webserver-nodejs-mpb.herokuapp.com/notes/";
-  String databaseUrl = "http://192.168.1.2:3000/notes/";
+  String databaseUrl = "http://192.168.1.6:3000/notes/";
 
   Dio _dio = Dio();
 
@@ -45,7 +45,7 @@ class DatabaseRemoteServer {
     return [noteList, idList];
   }
 
-  // INSERT NOTE LIST
+  // INSERT NOTE 
   Future<int> insertNote(Note note) async {
     await _dio.post(
       this.databaseUrl,
@@ -60,7 +60,7 @@ class DatabaseRemoteServer {
     return 1;
   }
 
-  // UPDATE NOTE LIST
+  // UPDATE NOTE 
   Future<int> updateNote(int noteId, Note note) async {
     await _dio.put(
       this.databaseUrl + "$noteId",
@@ -75,7 +75,7 @@ class DatabaseRemoteServer {
     return 1;
   }
 
-  // DELETE NOTE LIST
+  // DELETE NOTE 
   Future<int> deleteNote(int noteId) async {
     await _dio.delete(
       this.databaseUrl + "$noteId",
@@ -89,9 +89,9 @@ class DatabaseRemoteServer {
     return 1;
   }
 
-  /**
-   * STREAM -> Notifica quem quiser ouvir
-   */
+  ///
+  /// STREAM -> Notifica quem quiser ouvir
+  ///
 
   notify() async {
     if (_controller != null) {
@@ -105,7 +105,7 @@ class DatabaseRemoteServer {
       _controller = StreamController.broadcast();
 
       Socket socket = io(
-        'http://192.168.1.2:3000/',
+        'http://192.168.1.6:3000/',
         OptionBuilder().setTransports(['websocket']).build(),
       );
       socket.on('invalidate', (_) => notify());
