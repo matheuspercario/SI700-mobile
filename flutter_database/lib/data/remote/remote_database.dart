@@ -13,8 +13,7 @@ class DatabaseRemoteServer {
 
   DatabaseRemoteServer._createInstance();
 
-  // String databaseUrl = "https://webserver-nodejs-mpb.herokuapp.com/notes/";
-  String databaseUrl = "http://192.168.1.6:3000/notes/";
+  String databaseUrl = "https://si700.herokuapp.com/notes/";
 
   Dio _dio = Dio();
 
@@ -45,7 +44,7 @@ class DatabaseRemoteServer {
     return [noteList, idList];
   }
 
-  // INSERT NOTE 
+  // INSERT NOTE
   Future<int> insertNote(Note note) async {
     await _dio.post(
       this.databaseUrl,
@@ -60,7 +59,7 @@ class DatabaseRemoteServer {
     return 1;
   }
 
-  // UPDATE NOTE 
+  // UPDATE NOTE
   Future<int> updateNote(int noteId, Note note) async {
     await _dio.put(
       this.databaseUrl + "$noteId",
@@ -75,7 +74,7 @@ class DatabaseRemoteServer {
     return 1;
   }
 
-  // DELETE NOTE 
+  // DELETE NOTE
   Future<int> deleteNote(int noteId) async {
     await _dio.delete(
       this.databaseUrl + "$noteId",
@@ -105,7 +104,7 @@ class DatabaseRemoteServer {
       _controller = StreamController.broadcast();
 
       Socket socket = io(
-        'http://192.168.1.6:3000/',
+        'https://si700.herokuapp.com/',
         OptionBuilder().setTransports(['websocket']).build(),
       );
       socket.on('invalidate', (_) => notify());

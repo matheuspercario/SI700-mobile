@@ -3,8 +3,8 @@ import 'package:flutter_database/data/firestore/firestore_database.dart';
 import 'package:flutter_database/logic/manage_db/manage_db_event.dart';
 import 'package:flutter_database/logic/manage_db/manage_db_state.dart';
 
-class ManageFirestoreRemoteBloc extends Bloc<ManageEvent, ManageState> {
-  ManageFirestoreRemoteBloc() : super(InsertState());
+class ManageFirestoreBloc extends Bloc<ManageEvent, ManageState> {
+  ManageFirestoreBloc() : super(InsertState());
 
   @override
   Stream<ManageState> mapEventToState(ManageEvent event) async* {

@@ -13,6 +13,15 @@ class FirestoreRemoteServer {
   final CollectionReference noteCollection =
       FirebaseFirestore.instance.collection("notes");
 
+  /// Metodo inserir dados usuario
+  includeUserData(String uid, String email, int idade, int ra) async {
+    await noteCollection.doc(uid).set({
+      "email": email,
+      "idade": idade,
+      "ra": ra,
+    });
+  }
+
   // Mapeia os snapshots (documents) em um map
   List _noteListFromSnapshot(QuerySnapshot snapshots) {
     List<Note> noteList = [];

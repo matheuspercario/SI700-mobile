@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_database/logic/manage_auth/auth_bloc.dart';
 import 'package:flutter_database/logic/manage_auth/auth_event.dart';
 import 'package:flutter_database/logic/manage_db/manage_db_state.dart';
+import 'package:flutter_database/logic/manage_db/manage_firestore_db_bloc.dart';
 import 'package:flutter_database/logic/manage_db/manage_local_db_bloc.dart';
 import 'package:flutter_database/logic/manage_db/manage_remote_db_bloc.dart';
 import 'package:flutter_database/logic/monitor_db/monitor_db_bloc.dart';
@@ -22,7 +23,8 @@ class _MyAppState extends State<MyApp> {
   var _pages = [
     NoteList(),
     NotesEntry<ManageLocalBloc>(),
-    NotesEntry<ManageRemoteBloc>()
+    NotesEntry<ManageRemoteBloc>(),
+    NotesEntry<ManageFirestoreBloc>(),
   ];
 
   @override
@@ -32,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (_) => MonitorBloc()),
         BlocProvider(create: (_) => ManageLocalBloc()),
         BlocProvider(create: (_) => ManageRemoteBloc()),
+        BlocProvider(create: (_) => ManageFirestoreBloc()),
       ],
       child: BlocListener<ManageLocalBloc, ManageState>(
         listener: (context, state) {
@@ -49,43 +52,53 @@ class _MyAppState extends State<MyApp> {
               });
             }
           },
-          child: Scaffold(
-            body: _pages[_currentPage],
-            bottomNavigationBar: BottomNavigationBar(
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.list_rounded),
-                  label: "View",
-                ),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.sd_storage_rounded),
-                    label: "Manage Local"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.network_check_rounded),
-                    label: "Manage Remote"),
-              ],
-              currentIndex: _currentPage,
-              onTap: (int novoIndex) {
+          child: BlocListener<ManageFirestoreBloc, ManageState>(
+            listener: (context, state) {
+              if (state is UpdateState) {
                 setState(() {
-                  _currentPage = novoIndex;
+                  _currentPage = 3;
                 });
-              },
-              fixedColor: Colors.red,
-            ),
-            appBar: AppBar(
-              title: Text("Minhas Anotações"),
-              actions: [
-                TextButton.icon(
-                  style: TextButton.styleFrom(primary: Colors.white),
-                  icon: Icon(Icons.logout),
-                  onPressed: () {
-                    BlocProvider.of<AuthBloc>(context).add(
-                      Logout(),
-                    );
-                  },
-                  label: Text("Logout"),
-                )
-              ],
+              }
+            },
+            child: Scaffold(
+              body: _pages[_currentPage],
+              bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.list_rounded),
+                    label: "View",
+                  ),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.sd_storage_rounded), label: "Local"),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.network_check_rounded), label: "Remote"),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.fireplace_rounded), label: "Firebase"),
+                ],
+                currentIndex: _currentPage,
+                onTap: (int novoIndex) {
+                  setState(() {
+                    _currentPage = novoIndex;
+                  });
+                },
+                fixedColor: Colors.red,
+              ),
+              appBar: AppBar(
+                title: Text("Minhas Anotações"),
+                actions: [
+                  TextButton.icon(
+                    style: TextButton.styleFrom(primary: Colors.white),
+                    icon: Icon(Icons.logout),
+                    onPressed: () {
+                      BlocProvider.of<AuthBloc>(context).add(
+                        Logout(),
+                      );
+                    },
+                    label: Text("Logout"),
+                  )
+                ],
+              ),
             ),
           ),
         ),

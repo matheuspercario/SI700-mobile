@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_database/data/firestore/firestore_database.dart';
 import 'package:flutter_database/model/user.dart';
 
 class FirebaseAuthenticationService {
@@ -31,13 +32,19 @@ class FirebaseAuthenticationService {
     return UserModel(user.uid);
   }
 
-  createUserWithEmailAndPassword({String email, String password}) async {
+  // Aumentar paramtros... mais dados enviados!
+  createUserWithEmailAndPassword(
+      {String email, String password, int idade = 22, int ra = 222327}) async {
     UserCredential authResult =
         await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
     User user = authResult.user;
+
+    // Invocar Firestore para inserir informacoes a mais...
+    // FirestoreRemoteServer.helper.includeUserData(uid, email, idade, ra);
+
     return UserModel(user.uid);
   }
 
