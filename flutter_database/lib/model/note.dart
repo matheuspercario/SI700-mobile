@@ -8,6 +8,7 @@ class Note {
       0 = undefined
       1 = local
       2 = internet
+      3 = firebase
     */
     _dataLocation = 1;
     _title = "";
@@ -18,7 +19,6 @@ class Note {
     this._title = map["title"];
     this._description = map["description"];
     this._dataLocation = map["dataLocation"];
-    // this._dataLocation = 0;
   }
 
   String get title => _title;
@@ -38,7 +38,7 @@ class Note {
   }
 
   set dataLocation(int newLocation) {
-    if (newLocation > 0 && newLocation < 3) {
+    if (newLocation > 0 && newLocation < 4) {
       this._dataLocation = newLocation;
     }
   }

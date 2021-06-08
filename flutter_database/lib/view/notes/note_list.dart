@@ -15,11 +15,12 @@ class NoteList extends StatefulWidget {
 }
 
 class _NoteListState extends State<NoteList> {
-  List colorLocation = [Colors.red, Colors.blue, Colors.yellow];
+  List colorLocation = [Colors.red, Colors.blue, Colors.yellow, Colors.orange];
   List iconLocation = [
     Icons.error_outline,
     Icons.settings_cell,
     Icons.network_check_outlined,
+    Icons.fireplace_rounded
   ];
 
   @override

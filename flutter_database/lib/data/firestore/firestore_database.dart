@@ -20,7 +20,7 @@ class FirestoreRemoteServer {
 
     for (var doc in snapshots.docs) {
       Note note = Note.fromMap(doc.data());
-      note.dataLocation = 0;
+      note.dataLocation = 3;
       noteList.add(note);
       idList.add(doc.id);
     }
