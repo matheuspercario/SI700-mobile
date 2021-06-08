@@ -43,7 +43,7 @@ class FirebaseAuthenticationService {
     User user = authResult.user;
 
     // Invocar Firestore para inserir informacoes a mais...
-    // FirestoreRemoteServer.helper.includeUserData(uid, email, idade, ra);
+    FirestoreRemoteServer.helper.includeUserData(user.uid, email, idade, ra);
 
     return UserModel(user.uid);
   }
